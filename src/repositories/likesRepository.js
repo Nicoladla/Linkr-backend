@@ -11,3 +11,7 @@ export async function removeLike(postId, userId){
 export async function selectAllLikes(postId){
     return connectionDB.query(`SELECT username, "userId" FROM users JOIN likes ON users.id = "userId" WHERE "postId"=$1`, [postId]);
 }
+
+export async function likeCounter(postId){
+    return connectionDB.query(`SELECT COUNT (likes."postId") as likes FROM likes WHERE "postId" =$1`, [postId]);
+}
