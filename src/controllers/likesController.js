@@ -1,5 +1,6 @@
 import { insertLike, removeLike, selectAllLikes, likeCounter } from "../repositories/likesRepository.js";
 
+
 export async function getLikes(req, res) {
 
     const { id } = req.params;
