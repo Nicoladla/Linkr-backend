@@ -5,15 +5,6 @@ export async function updatePost(req, res) {
   const { link, description } = res.locals.post;
 
   try {
-    const existPost = await connection.query(
-      `SELECT * FROM posts WHERE id=$1`,
-      [id]
-    );
-
-    if (existPost.rows.length === 0) {
-      res.sendStatus(404);
-    }
-
     await connection.query(
       `UPDATE posts SET link=$1, description=$2 WHERE id=$3`,
       [link, description, id]
