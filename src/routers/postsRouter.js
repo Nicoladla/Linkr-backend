@@ -8,5 +8,6 @@ const router = Router();
 
 router.post("/posts/:id", hasToken, validPost, updatePost);
 router.delete("/posts/:id", hasToken, deletePost)
+router.post("hashtag/:hastag")
 
 export default router;
