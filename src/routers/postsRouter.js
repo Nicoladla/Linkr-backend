@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { updatePost, deletePost } from "../controllers/postsController.js";
 import { validPost } from "../middlewares/postValidationMiddlewares.js";
-import { hasToken } from "../middlewares/tokenValidationMiddleware.js";
+import { hasToken } from "../middlewares/authValidationMiddleware.js";
 
 
 const router = Router();

@@ -1,4 +1,4 @@
-import { insertLike, removeLike, selectAllLikes, likeCounter, searchUsers, postsByUser } from "../repositories/likesRepository.js";
+import { insertLike, removeLike, selectAllLikes, likeCounter } from "../repositories/likesRepository.js";
 
 
 export async function getLikes(req, res) {
