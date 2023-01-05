@@ -1,9 +1,10 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import routes from "./routers/indexRouters.js"
 
 import indexRouter from "./routers/indexRouters.js";
-import likesRouter from "./routers/likesRouter.js"
+import likesRouter from "./routers/likesRouter.js";
 
 dotenv.config();
 
