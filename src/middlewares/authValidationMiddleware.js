@@ -1,18 +1,21 @@
 import bcrypt from "bcrypt";
 import { signInSchema, userSchema } from "../models/userSchema.js";
+
 import { checkEmail, checkUsername } from "../repositories/authRepository.js";
 
 export async function hasToken(req, res, next) {
   const { authorization } = req.headers;
 
   const token = authorization?.replace("Bearer ", "");
-
+  const secretKey = process.env.JWT_SECRET;
   if (!token) {
     return res.sendStatus(401);
   }
 
+  const userDate= jwt.verify(token, secretKey);
+ 
   res.locals.token = token;
-
+  res.locals.user = userDate;
   next();
 }
 
