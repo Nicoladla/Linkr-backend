@@ -12,10 +12,16 @@ export async function hasToken(req, res, next) {
     return res.sendStatus(401);
   }
 
-  const userDate= jwt.verify(token, secretKey);
- 
-  res.locals.token = token;
-  res.locals.user = userDate;
+  
+  try {
+   const userData= jwt.verify(token, secretKey);
+   res.locals.token = token;
+   res.locals.user = userData;
+  } catch {
+   res.status(401).send("invalid token")
+  }
+  
+  
   next();
 }
 
