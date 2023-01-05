@@ -7,4 +7,7 @@ router.get("likes/:id", getLikes);
 router.post("like/:id", postLike);
 router.delete("like/:id", deleteLike);
 
+router.get("users/:id",);
+router.get("posts/users/:id");
+
 export default router;
