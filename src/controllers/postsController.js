@@ -52,3 +52,9 @@ export async function deletePost(req, res) {
     res.status(500).send(err.message);
   }
 }
+
+export async function getHashtag(req, res) {
+  const {hashtag} = req.params;
+
+  
+}
