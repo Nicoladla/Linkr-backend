@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { getUsers, getPostsByUser } from "../controllers/searchController";
+import { hasToken } from "../middlewares/authValidationMiddleware.js";
 
 const router = Router();
 
-router.get("users/:id", getUsers);
-router.get("posts/users/:id", getPostsByUser);
+router.get("search", hasToken, getUsers);
+router.get("users/:id", hasToken, getPostsByUser);
 
 export default router;
