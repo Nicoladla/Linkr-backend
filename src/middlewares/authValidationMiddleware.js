@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import { signInSchema, userSchema } from "../models/userSchema.js";
 import jwt from 'jsonwebtoken';
+=======
 
 import { checkEmail, checkUsername } from "../repositories/authRepository.js";
 
@@ -9,7 +10,7 @@ export async function hasToken(req, res, next) {
 
   const token = authorization?.replace("Bearer ", "");
   const secretKey = process.env.JWT_SECRET;
-  
+
   if (!token) {
     return res.sendStatus(401);
   }
@@ -17,6 +18,7 @@ export async function hasToken(req, res, next) {
   
   try {
    const userData= jwt.verify(token, secretKey);
+
    //res.locals.token = token;
    res.locals.user = userData;
   } catch {
