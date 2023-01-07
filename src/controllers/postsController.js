@@ -8,6 +8,8 @@ export async function postPost(req, res, next) {
   try {
     const insertingPost = await insertPost({ ...post, userId });
 
+    if (!post.description) return res.sendStatus(201);
+
     res.locals.postId = insertingPost.rows[0].id;
     next();
   } catch (err) {
