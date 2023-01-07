@@ -19,7 +19,7 @@ export async function getLikes(req, res) {
 export async function postLike(req, res) {
 
     const { id } = req.params;
-    const userId = res.locals.userId;
+    const userId = res.locals.user.userId;
 
     try {
         await insertLike(id, userId);
@@ -33,7 +33,7 @@ export async function postLike(req, res) {
 export async function deleteLike(req, res) {
 
     const { id } = req.params;
-    const userId = res.locals.userId;
+    const userId = res.locals.user.userId;
 
     try {
         const like = await removeLike(id, userId);
