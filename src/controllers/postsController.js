@@ -1,4 +1,21 @@
 import connection from "../database/db.js";
+import { insertPost } from "../repositories/postRepository.js";
+
+export async function postPost(req, res, next) {
+  const post = req.body;
+  const { userId } = res.locals.user;
+
+  try {
+    const insertingPost = await insertPost({ ...post, userId });
+
+    if (!post.description) return res.sendStatus(201);
+
+    res.locals.postId = insertingPost.rows[0].id;
+    next();
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+}
 
 export async function updatePost(req, res) {
   const { id } = req.params;
@@ -45,7 +62,5 @@ export async function deletePost(req, res) {
 }
 
 export async function getHashtag(req, res) {
-  const {hashtag} = req.params;
-
-  
+  const { hashtag } = req.params;
 }
