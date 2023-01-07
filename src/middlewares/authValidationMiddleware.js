@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import { signInSchema, userSchema } from "../models/userSchema.js";
 import jwt from 'jsonwebtoken';
-=======
 
 import { checkEmail, checkUsername } from "../repositories/authRepository.js";
 
