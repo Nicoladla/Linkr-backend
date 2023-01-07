@@ -26,7 +26,5 @@ export async function validPost(req, res, next) {
     res.status(500).send(err.message);
   }
 
-  res.locals.post = post;
-
   next();
 }

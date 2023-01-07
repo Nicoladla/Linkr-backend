@@ -1,5 +1,13 @@
 import connection from "../database/db.js";
 
+export async function postPost(req, res){
+  try{
+
+  }catch(err){
+    res.status(500).send(err.message)
+  }
+}
+
 export async function updatePost(req, res) {
   const { id } = req.params;
   const { link, description } = res.locals.post;
