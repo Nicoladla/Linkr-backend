@@ -37,7 +37,7 @@ export async function deleteLike(req, res) {
 
     try {
         const like = await removeLike(id, userId);
-        return res.status(200).send(like.rows); //trocar pra status 204 depois
+        return res.sendStatus(204);
     } catch (error) {
         res.status(500).send({ message: error.message });
     }

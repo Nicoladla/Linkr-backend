@@ -12,6 +12,7 @@ export async function getUsers(req, res) {
             return res.status(200).send(users.rows);
         } catch (error) {
             return res.status(500).send({message: error.message});
+            console.log(error);
         }
     }
 
