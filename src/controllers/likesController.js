@@ -40,7 +40,6 @@ export async function deleteLike(req, res) {
         return res.status(200).send(like.rows); //trocar pra status 204 depois
     } catch (error) {
         res.status(500).send({ message: error.message });
-        console.log(error.message)
     }
 
 }
