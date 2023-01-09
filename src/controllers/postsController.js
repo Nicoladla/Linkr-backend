@@ -1,5 +1,18 @@
 import connection from "../database/db.js";
-import { insertPost } from "../repositories/postRepository.js";
+import metadataLink from "../helpers/MetadataLinkHelper.js";
+import { fetchPosts, insertPost } from "../repositories/postRepository.js";
+
+export async function getPosts(req, res) {
+  try {
+    const { rows: posts } = await fetchPosts();
+    const postsWithMetadata = await metadataLink(posts);
+
+    res.status(200).send(postsWithMetadata);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err.message);
+  }
+}
 
 export async function postPost(req, res, next) {
   const post = req.body;
