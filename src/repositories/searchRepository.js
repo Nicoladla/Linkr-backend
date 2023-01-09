@@ -5,6 +5,5 @@ export async function searchUsers(username){
 }
 
 export async function postsByUser(userId){
-    return connection.query(`SELECT users.username, users.image, posts.* FROM users JOIN posts ON users.id = posts."userId" WHERE users.id=$1 ORDER BY 
-    "createdAt" DESC`, [userId]);
+    return connection.query(`SELECT users.username, users.image, posts.* FROM users JOIN posts ON users.id = posts."userId" WHERE users.id=$1 ORDER BY "createdAt" DESC`, [userId]);
 }

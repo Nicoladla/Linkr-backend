@@ -19,7 +19,7 @@ export async function getLikes(req, res) {
 export async function postLike(req, res) {
 
     const { id } = req.params;
-    const userId = res.locals.user.userId;
+    const { userId } = req.body;
 
     try {
         await insertLike(id, userId);
@@ -33,11 +33,11 @@ export async function postLike(req, res) {
 export async function deleteLike(req, res) {
 
     const { id } = req.params;
-    const userId = res.locals.user.userId;
+    const { userId } = req.body;
 
     try {
         const like = await removeLike(id, userId);
-        return res.sendStatus(204);
+        return res.status(200).send(like.rows);
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
