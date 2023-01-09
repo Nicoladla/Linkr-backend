@@ -2,5 +2,5 @@ import joi from "joi";
 
 export const postSchema = joi.object({
   link: joi.string().uri().required(),
-  description: joi.string().min(3),
+  description: joi.string().min(0),
 });
