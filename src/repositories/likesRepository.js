@@ -5,7 +5,7 @@ export async function insertLike(postId, userId) {
 }
 
 export async function removeLike(postId, userId){
-    return connection.query(`DELETE FROM likes WHERE "userId"=$1 AND postId=$2`, [userId, postId]);
+    return connection.query(`DELETE FROM likes WHERE "postId"=$1 AND "userId"=$2`, [postId, userId]);
 }
 
 export async function selectAllLikes(postId){
