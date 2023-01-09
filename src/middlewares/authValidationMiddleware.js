@@ -2,7 +2,8 @@ import bcrypt from "bcrypt";
 import { signInSchema, userSchema } from "../models/userSchema.js";
 import jwt from 'jsonwebtoken';
 
-import { checkEmail, checkUsername } from "../repositories/authRepository.js";
+
+import { checkEmail, checkUsername, selectUser } from "../repositories/authRepository.js";
 
 export async function hasToken(req, res, next) {
   const { authorization } = req.headers;
@@ -17,9 +18,13 @@ export async function hasToken(req, res, next) {
   
   try {
    const userData= jwt.verify(token, secretKey);
-
-   //res.locals.token = token;
+  const userRows = await selectUser (userData.userId);
+  
+  if (userRows.rows.length === 0){
+    return res.status(401).send("invalid user")
+  }
    res.locals.user = userData;
+   
   } catch {
    return res.status(401).send("invalid token")
   }
