@@ -13,3 +13,7 @@ export function insertFollowing(userId, followingUserId) {
     [userId, followingUserId]
   );
 }
+
+export function deleteFollowing(followersId) {
+  return connection.query(`DELETE FROM followers WHERE id=$1`, [followersId]);
+}
