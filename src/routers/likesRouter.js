@@ -5,8 +5,8 @@ import { hasToken } from "../middlewares/authValidationMiddleware.js";
 
 const router = Router();
 
-router.get("/likes/:id", hasToken, getLikes);
-router.post("/like/:id", postLike);
-router.delete("/like/:id", deleteLike);
+router.get("/likes/:id", getLikes);
+router.post("/like/:id", hasToken, postLike);
+router.post("/dislike/:id", hasToken, deleteLike);
 
 export default router;
