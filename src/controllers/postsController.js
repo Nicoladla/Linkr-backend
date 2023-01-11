@@ -5,6 +5,7 @@ import { fetchPosts, insertPost } from "../repositories/postRepository.js";
 export async function getPosts(req, res) {
   try {
     const { rows: posts } = await fetchPosts();
+  
     const postsWithMetadata = await metadataLink(posts);
 
     res.status(200).send(postsWithMetadata);
