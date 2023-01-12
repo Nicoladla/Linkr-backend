@@ -1,4 +1,5 @@
-import { searchUsers, postsByUser } from "../repositories/searchRepository.js";
+import { searchUsers, postsByUser, infoByUser } from "../repositories/searchRepository.js";
+import metadataLink from "../helpers/MetadataLinkHelper.js";
 
 export async function getUsers(req, res) {
     
@@ -23,7 +24,12 @@ export async function getPostsByUser(req, res){
 
     try {
         const posts = await postsByUser(id);
-        return res.status(200).send(posts.rows);
+        const infoUser = await infoByUser(id);
+
+        const postsWithMetadata = await metadataLink(posts.rows);
+
+        const info = [infoUser.rows[0], postsWithMetadata];
+        return res.status(200).send(info);
     } catch (error) {
         return res.status(500).send({message: error.message});
     }
