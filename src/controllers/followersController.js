@@ -7,16 +7,25 @@ import {
 
 export async function getFollowing(req, res) {
   const { userId } = res.locals.user;
-  const { id: followingUserId } = req.params;
+  const { id: followingUserId } = Number(req.params);
+  console.log(typeof followingUserId, followingUserId);
 
-  const usersExist = await selectUser(followingUserId);
-  if (usersExist.rowCount === 0) {
-    return res.status(400).send({ message: "Invalid user" });
+  try {
+    if (typeof followingUserId !== "number") {
+      return res.status(400).send({ message: "Invalid user" });
+    }
+
+    const usersExist = await selectUser(followingUserId);
+    if (usersExist.rowCount === 0) {
+      return res.status(400).send({ message: "Invalid user" });
+    }
+
+    const following = await fetchFollowing(userId, followingUserId);
+
+    res.status(200).send(following.rows[0]);
+  } catch (err) {
+    res.status(500).send(err.message);
   }
-
-  const following = await fetchFollowing(userId, followingUserId);
-
-  res.status(200).send(following.rows[0]);
 }
 
 export async function postFollowing(req, res) {
