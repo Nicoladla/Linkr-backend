@@ -2,9 +2,9 @@ import { Router } from "express";
 import { postRepost } from "../controllers/repostController.js";
 import { hasToken } from "../middlewares/authValidationMiddleware.js";
 
-const router = Router();
+const repostRouter = Router();
 
-router.post("/repost/:id", hasToken,postRepost)
+repostRouter.post("/repost/:postId", hasToken,postRepost)
 
 
-export default router;
+export default repostRouter;

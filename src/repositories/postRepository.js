@@ -11,7 +11,7 @@ ON
   posts."userId" = users.id
 
 UNION 
-SELECT  p.id AS "id" ,u1.id AS "userId",p.link,p.description, r."createdAt", r.id AS "repostId",u2.username AS "username",u1.image, u1.username AS "userShare",  true AS "repost"
+SELECT  p.id AS "id" ,u1.id AS "userId",p.link,p.description, r."createdAt", r.id AS "repostId",u2.username AS "username",u2.image, u1.username AS "userShare",  true AS "repost"
 
   FROM reposts r
   JOIN posts p
