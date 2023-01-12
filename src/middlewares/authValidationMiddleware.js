@@ -12,6 +12,7 @@ export async function hasToken(req, res, next) {
   const secretKey = process.env.JWT_SECRET;
 
   if (!token) {
+   
     return res.sendStatus(401);
   }
 

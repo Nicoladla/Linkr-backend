@@ -4,7 +4,7 @@ import { hasToken } from "../middlewares/authValidationMiddleware.js";
 
 const router = Router();
 
-router.post("/repost/:id", hasToken,postRepost)
+router.post("/repost/:postId", hasToken,postRepost)
 
 
 export default router;
