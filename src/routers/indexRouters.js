@@ -13,7 +13,7 @@ const router = Router();
 
 router.use(authRouter);
 router.use(followersRouter);
-router.use(postsRouter);
+router.use(postsRouters);
 router.use(likesRouter);
 router.use(searchRouter);
 router.use(commentRouter);

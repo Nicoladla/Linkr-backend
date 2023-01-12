@@ -11,6 +11,7 @@ export async function getLikes(req, res) {
         const infoLikes = [counter.rows[0], likes.rows];
         return res.status(200).send(infoLikes);
     } catch (error) {
+        
         res.status(500).send({ message: error.message });
     }
 
