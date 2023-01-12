@@ -7,7 +7,7 @@ import {
 
 export async function getFollowing(req, res) {
   const { userId } = res.locals.user;
-  const { id: followingUserId } = Number(req.params);
+  const followingUserId = Number(req.params.id);
 
   try {
     if (typeof followingUserId !== "number") {
