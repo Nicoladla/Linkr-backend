@@ -2,10 +2,24 @@ import { selectUser } from "../repositories/authRepository.js";
 import {
   fetchFollowing,
   insertFollowing,
-  deleteFollowing,
+  deletefollowing,
 } from "../repositories/followersRepositoy.js";
 
-export async function postFollower(req, res) {
+export async function getFollowing(req, res) {
+  const { userId } = res.locals.user;
+  const { id: followingUserId } = req.params;
+
+  const usersExist = await selectUser(followingUserId);
+  if (usersExist.rowCount === 0) {
+    return res.status(400).send({ message: "Invalid user" });
+  }
+
+  const following = await fetchFollowing(userId, followingUserId);
+
+  res.status(200).send(following);
+}
+
+export async function postFollowing(req, res) {
   const { followingUserId } = req.body;
   const { userId } = res.locals.user;
 
@@ -28,7 +42,7 @@ export async function postFollower(req, res) {
   }
 }
 
-export async function deleteFollower(req, res) {
+export async function deleteFollowing(req, res) {
   const { followingUserId } = req.body;
   const { userId } = res.locals.user;
 
@@ -38,7 +52,7 @@ export async function deleteFollower(req, res) {
       return res.status(404).send({ message: "You do not follow this user" });
     }
 
-    await deleteFollowing(followingExist.rows[0].id);
+    await deletefollowing(followingExist.rows[0].id);
 
     res.sendStatus(200);
   } catch (err) {

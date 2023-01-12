@@ -14,6 +14,6 @@ export function insertFollowing(userId, followingUserId) {
   );
 }
 
-export function deleteFollowing(followersId) {
+export function deletefollowing(followersId) {
   return connection.query(`DELETE FROM followers WHERE id=$1`, [followersId]);
 }
