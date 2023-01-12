@@ -8,7 +8,6 @@ import {
 export async function getFollowing(req, res) {
   const { userId } = res.locals.user;
   const { id: followingUserId } = Number(req.params);
-  console.log(typeof followingUserId, followingUserId);
 
   try {
     if (typeof followingUserId !== "number") {
