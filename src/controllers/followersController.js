@@ -16,7 +16,7 @@ export async function getFollowing(req, res) {
 
   const following = await fetchFollowing(userId, followingUserId);
 
-  res.status(200).send(following);
+  res.status(200).send(following.rows[0]);
 }
 
 export async function postFollowing(req, res) {
