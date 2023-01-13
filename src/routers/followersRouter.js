@@ -12,6 +12,6 @@ const router = Router();
 
 router.get("/followers/:id", hasToken, getFollowing);
 router.post("/followers", hasToken, followersValidation, postFollowing);
-router.delete("/followers", hasToken, followersValidation, deleteFollowing);
+router.delete("/followers/:id", hasToken, deleteFollowing);
 
 export default router;
