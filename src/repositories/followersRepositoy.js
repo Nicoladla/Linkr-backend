@@ -1,5 +1,12 @@
 import connection from "../database/db.js";
 
+export function fetchFollowingList(userId) {
+  return connection.query(
+    `SELECT * FROM followers WHERE "userId"=$1`,
+    [userId]
+  );
+}
+
 export function fetchFollowing(userId, followingUserId) {
   return connection.query(
     `SELECT * FROM followers WHERE "userId"=$1 AND "followingUserId"=$2`,

@@ -3,7 +3,20 @@ import {
   fetchFollowing,
   insertFollowing,
   deletefollowing,
+  fetchFollowingList,
 } from "../repositories/followersRepositoy.js";
+
+export async function getFollowingList(req, res) {
+  const { userId } = res.locals.user;
+
+  try {
+    const followingList = await fetchFollowingList(userId);
+
+    res.status(200).send(followingList.rows);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+}
 
 export async function getFollowing(req, res) {
   const { userId } = res.locals.user;
