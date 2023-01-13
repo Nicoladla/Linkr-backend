@@ -7,16 +7,24 @@ import {
 
 export async function getFollowing(req, res) {
   const { userId } = res.locals.user;
-  const { id: followingUserId } = req.params;
+  const followingUserId = Number(req.params.id);
 
-  const usersExist = await selectUser(followingUserId);
-  if (usersExist.rowCount === 0) {
-    return res.status(400).send({ message: "Invalid user" });
+  try {
+    if (typeof followingUserId !== "number") {
+      return res.status(400).send({ message: "Invalid user" });
+    }
+
+    const usersExist = await selectUser(followingUserId);
+    if (usersExist.rowCount === 0) {
+      return res.status(400).send({ message: "Invalid user" });
+    }
+
+    const following = await fetchFollowing(userId, followingUserId);
+
+    res.status(200).send(following.rows[0]);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
   }
-
-  const following = await fetchFollowing(userId, followingUserId);
-
-  res.status(200).send(following.rows[0]);
 }
 
 export async function postFollowing(req, res) {
@@ -38,15 +46,19 @@ export async function postFollowing(req, res) {
 
     res.sendStatus(201);
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send({ message: err.message });
   }
 }
 
 export async function deleteFollowing(req, res) {
-  const { followingUserId } = req.body;
+  const followingUserId = Number(req.params.id);
   const { userId } = res.locals.user;
 
   try {
+    if (typeof followingUserId !== "number") {
+      return res.status(400).send({ message: "Invalid user" });
+    }
+
     const followingExist = await fetchFollowing(userId, followingUserId);
     if (followingExist.rowCount === 0) {
       return res.status(404).send({ message: "You do not follow this user" });
@@ -56,6 +68,6 @@ export async function deleteFollowing(req, res) {
 
     res.sendStatus(200);
   } catch (err) {
-    res.status(500).send(err.message);
+    res.status(500).send({ message: err.message });
   }
 }

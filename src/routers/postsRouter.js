@@ -11,6 +11,6 @@ router.get("/posts", hasToken, getPosts)
 router.post("/posts", hasToken, validPost, postPost, postHashtag);
 router.patch("/posts/:id", hasToken, validPost, updatePost);
 router.delete("/posts/:id", hasToken, deletePost);
-router.post("hashtag/:hastag")
+
 
 export default router;

@@ -1,7 +1,10 @@
+import metadataLink from "../helpers/MetadataLinkHelper.js";
 import {
   getHashtag,
+  getTrendingHashtags,
   insertHashtag,
   insertPostHashtag,
+  selectHashtag,
 } from "../repositories/hashtagRepository.js";
 
 export async function postHashtag(req, res) {
@@ -10,7 +13,7 @@ export async function postHashtag(req, res) {
 
   const regex = /(#[a-z0-9][a-z0-9\-_]*)/gi;
   const hashtags = description?.match(regex);
-
+ 
   try {
     if (!hashtags) return res.sendStatus(201);
 
@@ -29,4 +32,29 @@ export async function postHashtag(req, res) {
   } catch (err) {
     res.status(500).send(err.message);
   }
+}
+
+export async function getTrendig(req,res){
+  try {
+    const trendingHashtags = await getTrendingHashtags();
+    res.status(201).send(trendingHashtags.rows);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+}
+
+export async function getHashtagByName(req,res){
+  const {hashtag}=req.params;
+ 
+  try {
+    const { rows: posts } = await selectHashtag(`#${hashtag}`);
+  
+    const postsWithMetadata = await metadataLink(posts);
+
+    res.status(200).send(postsWithMetadata);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send(err.message);
+  }
+
 }

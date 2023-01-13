@@ -3,7 +3,7 @@ import connection from "../database/db.js";
 export function fetchPosts() {
   return connection.query(`
   SELECT 
-  posts.*, null AS "repostId", users.username, users.image, null AS "userShare",false AS "repost"
+  posts.*, null AS "repostId", users.username, users.image, null AS "userShare",null AS "userShareId",false AS "repost"
 
 FROM 
   posts JOIN users 
@@ -11,7 +11,7 @@ ON
   posts."userId" = users.id
 
 UNION 
-SELECT  p.id AS "id" ,u1.id AS "userId",p.link,p.description, r."createdAt", r.id AS "repostId",u2.username AS "username",u2.image, u1.username AS "userShare",  true AS "repost"
+SELECT  p.id AS "id" ,u2.id AS "userId",p.link,p.description, r."createdAt", r.id AS "repostId",u2.username AS "username",u2.image, u1.username AS "userShare",u1.id AS "userShareId",  true AS "repost"
 
   FROM reposts r
   JOIN posts p
