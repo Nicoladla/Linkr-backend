@@ -3,9 +3,11 @@ import metadataLink from "../helpers/MetadataLinkHelper.js";
 import { fetchPosts, insertPost } from "../repositories/postRepository.js";
 
 export async function getPosts(req, res) {
+  const { userId } = res.locals.user;
+
   try {
-    const { rows: posts } = await fetchPosts();
-  
+    const { rows: posts } = await fetchPosts(userId);
+
     const postsWithMetadata = await metadataLink(posts);
 
     res.status(200).send(postsWithMetadata);
