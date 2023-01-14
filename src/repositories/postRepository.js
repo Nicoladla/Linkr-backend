@@ -28,7 +28,7 @@ SELECT  p.id AS "id" ,u2.id AS "userId",p.link,p.description, r."createdAt", r.i
     JOIN users u2
       ON  p."userId" = u2.id
     JOIN followers
-      ON p."userId" = followers."followingUserId"
+      ON r."userId" = followers."followingUserId"
   WHERE followers."userId"= $1
 
 ORDER BY 
